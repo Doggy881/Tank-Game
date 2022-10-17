@@ -13,7 +13,7 @@ public class TankAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn)
+        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn && TankMovement.canMove)
         {
             animator.SetBool("IsDriving", true);
         }
@@ -22,7 +22,7 @@ public class TankAnimation : MonoBehaviour
             animator.SetBool("IsDriving", false);
         }
 
-        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn)
+        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn && TankMovement.canMove)
         {
             animator.SetBool("IsDriving", true);
         }

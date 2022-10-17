@@ -301,9 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9885c6b323dc7240ac34e707fa5793f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BarrelRotator: {fileID: 1778087141}
   FirePoint: {fileID: 25930028}
   Bullet: {fileID: 4266074413979624057, guid: fa0a1ef16f031ec4e91a830c948c9e09, type: 3}
+  BarrelRotator: {fileID: 1778087141}
   PlayerNumber: 2
   IsItsTurn: 0
   turning: {fileID: 789456142}
@@ -979,9 +979,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9885c6b323dc7240ac34e707fa5793f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BarrelRotator: {fileID: 1008278730}
   FirePoint: {fileID: 1790311459}
   Bullet: {fileID: 4266074413979624057, guid: fa0a1ef16f031ec4e91a830c948c9e09, type: 3}
+  BarrelRotator: {fileID: 1008278730}
   PlayerNumber: 1
   IsItsTurn: 0
   turning: {fileID: 789456142}
@@ -1453,7 +1453,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0000038147, y: -36}
-  m_SizeDelta: {x: 271.1444, y: 87.3509}
+  m_SizeDelta: {x: 409.7909, y: 182.0927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &665265957
 MonoBehaviour:
@@ -1509,8 +1509,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1684,6 +1684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 789456139}
   - component: {fileID: 789456142}
+  - component: {fileID: 789456143}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -1721,6 +1722,18 @@ MonoBehaviour:
   Tank1: {fileID: 566228149}
   Tank2: {fileID: 208082474}
   turnText: {fileID: 297103232}
+--- !u!114 &789456143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789456138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d89ba40b7c2b94db8d423b26ac9a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &975222523
 GameObject:
   m_ObjectHideFlags: 0

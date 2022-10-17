@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class TankMovement : MonoBehaviour
 {
-    public Transform BarrelRotator;
-
     private float barrelSpeed;
     private float currentBulletMoveSpeed;
     private float maxBulletMoveSpeed;
@@ -16,6 +15,7 @@ public class TankMovement : MonoBehaviour
 
     public Transform FirePoint;
     public GameObject Bullet;
+    public Transform BarrelRotator;
 
     public int PlayerNumber;
 
@@ -33,8 +33,9 @@ public class TankMovement : MonoBehaviour
 
     public static float healthPoints;
     private TextMeshProUGUI healthText;
-
     public TextMeshProUGUI winnerText;
+
+    public static bool hasWon;
 
     CinemachineTargetGroup targetGroup;
 
@@ -70,7 +71,9 @@ public class TankMovement : MonoBehaviour
                 {
                     gameObject.SetActive(false);
                     winnerText.enabled = true;
-                    winnerText.text = "Player 2 Won!";
+                    winnerText.text = "Player 2 Won! \n" +
+                        "Hit R To Restart!";
+                    hasWon = true;
                 }
 
                 moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer) + "S";
@@ -79,7 +82,9 @@ public class TankMovement : MonoBehaviour
                 targetGroup.m_Targets[0].weight = 1f;
                 targetGroup.m_Targets[1].weight = 0.2f;
 
-                if (BarrelRotator.rotation.z <= 0.5f || BarrelRotator.rotation.z >= -0.5f)
+                Debug.Log("Euler Angels : " + BarrelRotator.rotation.eulerAngles.z);
+
+                if (BarrelRotator.rotation.eulerAngles.z < 270 || BarrelRotator.rotation.eulerAngles.z < 90)
                 {
                     BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
                 }
@@ -135,7 +140,9 @@ public class TankMovement : MonoBehaviour
                 {
                     gameObject.SetActive(false);
                     winnerText.enabled = true;
-                    winnerText.text = "Player 1 Won!";
+                    winnerText.text = "Player 1 Won! \n" +
+                        "Hit R To Restart!";
+                    hasWon = true;
                 }
 
                 moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer) + "S";
