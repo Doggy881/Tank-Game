@@ -15,7 +15,7 @@ public class Turning : MonoBehaviour
         Tank1.GetComponent<TankMovement>().IsItsTurn = true;
         Tank2.GetComponent<TankMovement>().IsItsTurn = false;
 
-        turnText.text = "It's Player 1's Turn!";
+        //turnText.text = "It's Player 1's Turn!";
     }
 
     public void ChangeTurn()
@@ -24,14 +24,14 @@ public class Turning : MonoBehaviour
         {
             Tank1.GetComponent<TankMovement>().IsItsTurn = false;
             Tank2.GetComponent<TankMovement>().IsItsTurn = true;
-            turnText.text = "It's Player 2's Turn!";
+            //turnText.text = "It's Player 2's Turn!";
             Bullet.CanTurn = true;
         }
         else if (Tank2.GetComponent<TankMovement>().IsItsTurn == true)
         {
             Tank1.GetComponent<TankMovement>().IsItsTurn = true;
             Tank2.GetComponent<TankMovement>().IsItsTurn = false;
-            turnText.text = "It's Player 1's Turn!";
+            //turnText.text = "It's Player 1's Turn!";
             Bullet.CanTurn = true;
         }
     }

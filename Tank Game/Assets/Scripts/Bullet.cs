@@ -1,8 +1,7 @@
-using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Cinemachine;
 
 public class Bullet : MonoBehaviour
 {
@@ -19,7 +18,6 @@ public class Bullet : MonoBehaviour
     CinemachineTargetGroup targetGroup;
 
     public int damage;
-    public int damageRange;
 
     private void Start()
     {
@@ -38,13 +36,6 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, damageRange, Vector2.zero, damageRange);
-
-        if (hit.collider)
-        {
-            Debug.Log("Do Damage!");
-        }
-
         BulletTimeToLife -= Time.deltaTime;
         if (BulletTimeToLife <= 0)
         {
@@ -69,6 +60,7 @@ public class Bullet : MonoBehaviour
             }
             TankMovement.canFire = true;
             TankMovement.canMove = true;
+            TankMovement.moveTimer = TankMovement.defaultMoveTimer;
             TankMovement.moveTimerOn = true;
             GetComponent<SpriteRenderer>().enabled = false;
             rb.freezeRotation = true;
@@ -85,7 +77,8 @@ public class Bullet : MonoBehaviour
 
             if (collision.gameObject.tag == "Player")
             {
-                TankMovement.healthPoints--;
+                TankMovement.healthPoints -= damage;
+                Debug.Log("Player " + collision.gameObject.GetComponent<TankMovement>().PlayerNumber + " Got Hit!");
             }
         }
     }

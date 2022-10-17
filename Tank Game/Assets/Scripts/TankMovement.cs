@@ -26,12 +26,13 @@ public class TankMovement : MonoBehaviour
 
     public TextMeshProUGUI moveTimerText;
     public TextMeshProUGUI shootingPowerText;
-    private float moveTimer;
-    private float defaultMoveTimer;
+    public static float moveTimer;
+    public static float defaultMoveTimer;
     public static bool moveTimerOn;
     public static bool canMove;
 
     public static float healthPoints;
+    private TextMeshProUGUI healthText;
 
     public TextMeshProUGUI winnerText;
 
@@ -51,24 +52,28 @@ public class TankMovement : MonoBehaviour
         moveTimer = defaultMoveTimer;
 
         targetGroup = GameObject.FindGameObjectWithTag("TargetGroup").GetComponent<CinemachineTargetGroup>();
+
+        healthText = GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
     {
         bulletMoveSpeedPercentage = currentBulletMoveSpeed / maxBulletMoveSpeed * 100;
 
-        if (healthPoints <= 0)
-        {
-            gameObject.SetActive(false);
-            winnerText.enabled = true;
-            winnerText.text = "Player " + PlayerNumber + " Won!";
-        }
-
         if (IsItsTurn)
         {
             if (PlayerNumber == 1)
             {
-                moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer);
+                healthText.text = "Health : " + healthPoints.ToString();
+
+                if (healthPoints <= 0)
+                {
+                    gameObject.SetActive(false);
+                    winnerText.enabled = true;
+                    winnerText.text = "Player 2 Won!";
+                }
+
+                moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer) + "S";
                 shootingPowerText.text = "ShootingPower : " + Mathf.Round(bulletMoveSpeedPercentage) + "%";
 
                 targetGroup.m_Targets[0].weight = 1f;
@@ -114,7 +119,6 @@ public class TankMovement : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
                     canFire = false;
-                    moveTimer = defaultMoveTimer;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);
                     BulletObject.GetComponent<Rigidbody2D>().AddForce(
@@ -125,7 +129,16 @@ public class TankMovement : MonoBehaviour
 
             if (PlayerNumber == 2)
             {
-                moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer);
+                healthText.text = "Health : " + healthPoints.ToString();
+
+                if (healthPoints <= 0)
+                {
+                    gameObject.SetActive(false);
+                    winnerText.enabled = true;
+                    winnerText.text = "Player 1 Won!";
+                }
+
+                moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer) + "S";
                 shootingPowerText.text = "ShootingPower : " + Mathf.Round(bulletMoveSpeedPercentage) + "%";
 
                 targetGroup.m_Targets[0].weight = 0.2f;
@@ -171,7 +184,6 @@ public class TankMovement : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
                     canFire = false;
-                    moveTimer = defaultMoveTimer;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);
                     BulletObject.GetComponent<Rigidbody2D>().AddForce(
