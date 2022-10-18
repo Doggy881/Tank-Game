@@ -19,6 +19,9 @@ public class Bullet : MonoBehaviour
 
     public int damage;
 
+    public AudioClip bulletImpactSFX;
+    public AudioSource bulletImpactSFXSource;
+
     private void Start()
     {
         BoomFX = GetComponent<ParticleSystem>();
@@ -68,6 +71,7 @@ public class Bullet : MonoBehaviour
             {
                 canParticle = false;
                 BoomFX.Play();
+                bulletImpactSFXSource.PlayOneShot(bulletImpactSFX);
                 if (!BoomFX.isPlaying)
                 {
                     targetGroup.RemoveMember(gameObject.transform);

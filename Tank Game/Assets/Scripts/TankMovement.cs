@@ -37,6 +37,9 @@ public class TankMovement : MonoBehaviour
 
     public static bool hasWon;
 
+    public AudioSource shootingSFXSource;
+    public AudioClip shootingSFX;
+
     CinemachineTargetGroup targetGroup;
 
     private void Start()
@@ -104,7 +107,7 @@ public class TankMovement : MonoBehaviour
                 if (moveTimerOn)
                 {
                     transform.Translate(Vector2.right * Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime);
-                    //moveTimer -= Time.deltaTime;
+                    moveTimer -= Time.deltaTime;
 
                     if (moveTimer <= 0)
                     {

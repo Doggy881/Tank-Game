@@ -19,31 +19,46 @@ public class TankAnimation : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Horizontal Input : " + Input.GetAxisRaw("Horizontal"));
-        Debug.Log("Is Tanks Turn : " + GetComponent<TankMovement>().IsItsTurn);
-        Debug.Log("Can Tank Move : " + TankMovement.canMove);
-
-        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn && TankMovement.canMove)
+        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
+            && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 1)
         {
-            idleEngineSFXSource.Stop();
-            if (!engineRunningSFXSource.isPlaying)
-            {
-                engineRunningSFXSource.Play();
-            }
+            PlayIdleSound();
             animator.SetBool("IsDriving", true);
-
-            Debug.Log("Driving...");
         }
-        else
+        else if(Input.GetAxisRaw("Horizontal") == 0)
         {
-            engineRunningSFXSource.Stop();
-            if (!idleEngineSFXSource.isPlaying)
-            {
-                idleEngineSFXSource.PlayOneShot(idleEngineSFX);
-            }
+            PlayDrivingSound();
             animator.SetBool("IsDriving", false);
+        }
 
-            Debug.Log("Idling...");
+        if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
+            && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 2)
+        {
+            PlayIdleSound();
+            animator.SetBool("IsDriving", true);
+        }
+        else if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            PlayDrivingSound();
+            animator.SetBool("IsDriving", false);
+        }
+    }
+
+    private void PlayIdleSound()
+    {
+        idleEngineSFXSource.Stop();
+        if (!engineRunningSFXSource.isPlaying)
+        {
+            engineRunningSFXSource.PlayOneShot(engineRunningSFX);
+        }
+    }
+
+    private void PlayDrivingSound()
+    {
+        engineRunningSFXSource.Stop();
+        if (!idleEngineSFXSource.isPlaying)
+        {
+            idleEngineSFXSource.PlayOneShot(idleEngineSFX);
         }
     }
 }
