@@ -82,12 +82,12 @@ public class TankMovement : MonoBehaviour
                 targetGroup.m_Targets[0].weight = 1f;
                 targetGroup.m_Targets[1].weight = 0.2f;
 
-                Debug.Log("Euler Angels : " + BarrelRotator.rotation.eulerAngles.z);
+                //Debug.Log("Euler Angels : " + BarrelRotator.rotation.eulerAngles.z);
 
-                if (BarrelRotator.rotation.eulerAngles.z < 270 || BarrelRotator.rotation.eulerAngles.z < 90)
-                {
-                    BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
-                }
+                //if (BarrelRotator.rotation.eulerAngles.z < 270 || BarrelRotator.rotation.eulerAngles.z < 90)
+                //{
+                BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
+                //}
 
                 if (canMove)
                 {
@@ -104,7 +104,7 @@ public class TankMovement : MonoBehaviour
                 if (moveTimerOn)
                 {
                     transform.Translate(Vector2.right * Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime);
-                    moveTimer -= Time.deltaTime;
+                    //moveTimer -= Time.deltaTime;
 
                     if (moveTimer <= 0)
                     {
