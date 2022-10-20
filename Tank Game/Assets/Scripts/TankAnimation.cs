@@ -6,8 +6,8 @@ public class TankAnimation : MonoBehaviour
 {
     private Animator animator;
 
-    public AudioClip idleEngineSFX;
     public AudioSource idleEngineSFXSource;
+    public AudioSource idleEngineSFXSource2;
 
     public AudioClip engineRunningSFX;
     public AudioSource engineRunningSFXSource;
@@ -58,7 +58,14 @@ public class TankAnimation : MonoBehaviour
         engineRunningSFXSource.Stop();
         if (!idleEngineSFXSource.isPlaying)
         {
-            idleEngineSFXSource.PlayOneShot(idleEngineSFX);
+            if (Random.Range(0, 1) == 0)
+            {
+                idleEngineSFXSource.PlayOneShot(idleEngineSFXSource.clip);
+            }
+            else
+            {
+                idleEngineSFXSource2.PlayOneShot(idleEngineSFXSource.clip);
+            }
         }
     }
 }

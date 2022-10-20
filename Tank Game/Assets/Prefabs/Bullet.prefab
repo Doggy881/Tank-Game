@@ -119,7 +119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   bulletImpactSFX: {fileID: 8300000, guid: 537616421ca19fe4baf1e38c5195256a, type: 3}
-  bulletImpactSFXSource: {fileID: 3353454005730462049, guid: d00fc4826f7f7604a89fba48b54d0f9b, type: 3}
+  bulletMetalImpactSFX: {fileID: 8300000, guid: cad35015374e05f4689622e24f8da1fd, type: 3}
+  metalImpactSFX: {fileID: 8300000, guid: a88708db95b49b84ea80e446ebc16dba, type: 3}
 --- !u!50 &6589788302485974553
 Rigidbody2D:
   serializedVersion: 4

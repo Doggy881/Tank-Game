@@ -20,7 +20,12 @@ public class Bullet : MonoBehaviour
     public int damage;
 
     public AudioClip bulletImpactSFX;
-    public AudioSource bulletImpactSFXSource;
+    private AudioSource bulletImpactSFXSource;
+
+    public AudioClip bulletMetalImpactSFX;
+    private AudioSource bulletMetalImpactSFXSource;
+    public AudioClip metalImpactSFX;
+    private AudioSource metalImpactSFXSource;
 
     private void Start()
     {
@@ -30,11 +35,14 @@ public class Bullet : MonoBehaviour
         turning = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Turning>();
 
         CanTurn = true;
+        canParticle = true;
 
         targetGroup = GameObject.FindWithTag("TargetGroup").GetComponent<CinemachineTargetGroup>();
         targetGroup.AddMember(gameObject.transform, 1, 1);
 
-        canParticle = true;
+        bulletImpactSFXSource = GameObject.FindGameObjectWithTag("ExplosionSFX").GetComponent<AudioSource>();
+        bulletMetalImpactSFXSource = GameObject.FindGameObjectWithTag("BulletMetalSFX").GetComponent<AudioSource>();
+        metalImpactSFXSource = GameObject.FindGameObjectWithTag("MetalSFX").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -81,6 +89,8 @@ public class Bullet : MonoBehaviour
 
             if (collision.gameObject.tag == "Player")
             {
+                bulletMetalImpactSFXSource.PlayOneShot(bulletImpactSFX);
+                metalImpactSFXSource.PlayOneShot(metalImpactSFX);
                 TankMovement.healthPoints -= damage;
                 Debug.Log("Player " + collision.gameObject.GetComponent<TankMovement>().PlayerNumber + " Got Hit!");
             }

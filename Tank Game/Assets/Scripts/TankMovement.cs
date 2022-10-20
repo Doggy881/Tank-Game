@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
-using UnityEngine.SceneManagement;
 
 public class TankMovement : MonoBehaviour
 {
@@ -126,6 +125,7 @@ public class TankMovement : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
+                    shootingSFXSource.PlayOneShot(shootingSFX);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);
@@ -193,6 +193,7 @@ public class TankMovement : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
+                    shootingSFXSource.PlayOneShot(shootingSFX);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);
