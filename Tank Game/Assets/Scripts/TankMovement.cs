@@ -30,6 +30,7 @@ public class TankMovement : MonoBehaviour
     public static float defaultMoveTimer;
     public static bool moveTimerOn;
     public static bool canMove;
+    public static bool canStart;
 
     public static float healthPoints;
     private TextMeshProUGUI healthText;
@@ -41,6 +42,8 @@ public class TankMovement : MonoBehaviour
     public AudioClip shootingSFX;
 
     CinemachineTargetGroup targetGroup;
+
+    public GameObject mainMenu;
 
     private void Start()
     {
@@ -58,13 +61,15 @@ public class TankMovement : MonoBehaviour
         targetGroup = GameObject.FindGameObjectWithTag("TargetGroup").GetComponent<CinemachineTargetGroup>();
 
         healthText = GetComponent<TextMeshProUGUI>();
+
+        mainMenu.SetActive(true);
     }
 
     private void Update()
     {
         bulletMoveSpeedPercentage = currentBulletMoveSpeed / maxBulletMoveSpeed * 100;
 
-        if (IsItsTurn)
+        if (IsItsTurn && canStart)
         {
             if (PlayerNumber == 1)
             {

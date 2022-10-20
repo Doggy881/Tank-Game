@@ -12,6 +12,8 @@ public class TankAnimation : MonoBehaviour
     public AudioClip engineRunningSFX;
     public AudioSource engineRunningSFXSource;
 
+    public static bool canPlayAudio;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -46,19 +48,25 @@ public class TankAnimation : MonoBehaviour
 
     private void PlayIdleSound()
     {
-        idleEngineSFXSource.Stop();
-        if (!engineRunningSFXSource.isPlaying)
+        if (canPlayAudio)
         {
-            engineRunningSFXSource.PlayOneShot(engineRunningSFX);
+            idleEngineSFXSource.Stop();
+            if (!engineRunningSFXSource.isPlaying)
+            {
+                engineRunningSFXSource.PlayOneShot(engineRunningSFX);
+            }
         }
     }
 
     private void PlayDrivingSound()
     {
-        engineRunningSFXSource.Stop();
-        if (!idleEngineSFXSource.isPlaying)
+        if (canPlayAudio)
         {
-            idleEngineSFXSource.PlayOneShot(idleEngineSFX);
+            engineRunningSFXSource.Stop();
+            if (!idleEngineSFXSource.isPlaying)
+            {
+                idleEngineSFXSource.PlayOneShot(idleEngineSFX);
+            }
         }
     }
 }
