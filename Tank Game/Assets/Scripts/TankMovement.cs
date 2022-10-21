@@ -44,6 +44,8 @@ public class TankMovement : MonoBehaviour
 
     public GameObject mainMenu;
 
+    public Camera cam;
+
     private void Start()
     {
         barrelSpeed = 20f;
