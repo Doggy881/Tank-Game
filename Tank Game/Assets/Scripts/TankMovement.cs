@@ -37,14 +37,16 @@ public class TankMovement : MonoBehaviour
 
     public static bool hasWon;
 
-    public AudioSource shootingSFXSource;
-    public AudioClip shootingSFX;
+    [Header ("Sound Effects")]
+    public AudioSource[] shootingSFX;
+    public float minPitch;
+    public float maxPitch;
+    public float minVolume;
+    public float maxVolume;
 
     CinemachineTargetGroup targetGroup;
 
     public GameObject mainMenu;
-
-    public Camera cam;
 
     private void Start()
     {
@@ -91,12 +93,20 @@ public class TankMovement : MonoBehaviour
                 targetGroup.m_Targets[0].weight = 1f;
                 targetGroup.m_Targets[1].weight = 0.2f;
 
-                //Debug.Log("Euler Angels : " + BarrelRotator.rotation.eulerAngles.z);
+                if (BarrelRotator.rotation.eulerAngles.z > 270 || BarrelRotator.rotation.eulerAngles.z < 90)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
+                }
 
-                //if (BarrelRotator.rotation.eulerAngles.z < 270 || BarrelRotator.rotation.eulerAngles.z < 90)
-                //{
-                BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
-                //}
+                else if (BarrelRotator.rotation.eulerAngles.z > 90 && BarrelRotator.rotation.eulerAngles.z < 95)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, -1 * barrelSpeed * Time.deltaTime);
+                }
+
+                else if (BarrelRotator.rotation.eulerAngles.z < 270 && BarrelRotator.rotation.eulerAngles.z > 265)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, 1 * barrelSpeed * Time.deltaTime);
+                }
 
                 if (canMove)
                 {
@@ -132,7 +142,10 @@ public class TankMovement : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
-                    shootingSFXSource.PlayOneShot(shootingSFX);
+                    int randomNum = Random.Range(0, shootingSFX.Length);
+                    shootingSFX[randomNum].volume = Random.Range(minVolume, maxVolume);
+                    shootingSFX[randomNum].pitch = Random.Range(minPitch, maxPitch);
+                    shootingSFX[randomNum].PlayOneShot(shootingSFX[randomNum].clip);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);
@@ -161,9 +174,19 @@ public class TankMovement : MonoBehaviour
                 targetGroup.m_Targets[0].weight = 0.2f;
                 targetGroup.m_Targets[1].weight = 1f;
 
-                if (BarrelRotator.rotation.z <= 0.5f || BarrelRotator.rotation.z >= -0.5f)
+                if (BarrelRotator.rotation.eulerAngles.z > 270 || BarrelRotator.rotation.eulerAngles.z < 90)
                 {
                     BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
+                }
+
+                else if (BarrelRotator.rotation.eulerAngles.z > 90 && BarrelRotator.rotation.eulerAngles.z < 95)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, -1 * barrelSpeed * Time.deltaTime);
+                }
+
+                else if (BarrelRotator.rotation.eulerAngles.z < 270 && BarrelRotator.rotation.eulerAngles.z > 265)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, 1 * barrelSpeed * Time.deltaTime);
                 }
 
                 if (canMove)
@@ -200,7 +223,8 @@ public class TankMovement : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
-                    shootingSFXSource.PlayOneShot(shootingSFX);
+                    int randomNum = Random.Range(0, shootingSFX.Length);
+                    shootingSFX[randomNum].PlayOneShot(shootingSFX[randomNum].clip);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);

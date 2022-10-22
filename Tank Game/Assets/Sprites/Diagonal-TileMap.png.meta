@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3735bafce67b71a4b880dd9704ea4935
+guid: eecf1051173589b43bfd03272595d50c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -100,23 +100,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TileMap Tank_0
+      name: Diagonal-TileMap_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,17 +115,22 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 16, y: 16}
+        - {x: -16, y: -16}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
       tessellationDetail: 0
       bones: []
-      spriteID: 7a82388768cb47845a8011a0a36d3c29
-      internalID: 584260982
+      spriteID: 8cd599cc0d924ff4f9d9ba183d8160da
+      internalID: 1259149576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap Tank_1
+      name: Diagonal-TileMap_1
       rect:
         serializedVersion: 2
         x: 32
@@ -149,56 +142,15 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 16, y: -16}
-        - {x: 16, y: 12}
-        - {x: -16, y: 12}
+      - - {x: -16, y: 16}
         - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: -16}
+        - {x: -16, y: 16}
       tessellationDetail: 0
       bones: []
-      spriteID: eae24c78ea0618a49930835d54f26a5a
-      internalID: -1826558648
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TileMap Tank_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3fda5f8f736e017478e682d974880f79
-      internalID: -416467332
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TileMap Tank_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 265898b64aff28444b9280fa3bace5d9
-      internalID: 1619712889
+      spriteID: ece9e18d95848f64a89fbcd3b7238d50
+      internalID: 1017297070
       vertices: []
       indices: 
       edges: []
@@ -214,10 +166,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TileMap Tank_3: 1619712889
-      TileMap Tank_1: -1826558648
-      TileMap Tank_0: 584260982
-      TileMap Tank_2: -416467332
+      Diagonal-TileMap_1: 1017297070
+      Diagonal-TileMap_0: 1259149576
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

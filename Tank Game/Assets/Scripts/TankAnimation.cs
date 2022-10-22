@@ -22,39 +22,27 @@ public class TankAnimation : MonoBehaviour
     private void Update()
     {
         if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
-            && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 1)
-        {
-            PlayIdleSound();
-            animator.SetBool("IsDriving", true);
-        }
-        else if(Input.GetAxisRaw("Horizontal") == 0)
+            && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 1 && TankMovement.moveTimer > 0)
         {
             PlayDrivingSound();
-            animator.SetBool("IsDriving", false);
+            animator.SetBool("IsDriving", true);
+        }
+        else if (Input.GetAxisRaw("Horizontal") == 0 || TankMovement.moveTimer <= 0)
+        {
+            PlayIdleSound();
+            animator.SetBool("IsDriving", false); 
         }
 
         if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
-            && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 2)
-        {
-            PlayIdleSound();
-            animator.SetBool("IsDriving", true);
-        }
-        else if (Input.GetAxisRaw("Horizontal") == 0)
+            && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 2 && TankMovement.moveTimer > 0)
         {
             PlayDrivingSound();
-            animator.SetBool("IsDriving", false);
+            animator.SetBool("IsDriving", true);
         }
-    }
-
-    private void PlayIdleSound()
-    {
-        if (canPlayAudio)
+        else if (Input.GetAxisRaw("Horizontal") == 0 || TankMovement.moveTimer <= 0)
         {
-            idleEngineSFXSource.Stop();
-            if (!engineRunningSFXSource.isPlaying)
-            {
-                engineRunningSFXSource.PlayOneShot(engineRunningSFX);
-            }
+            PlayIdleSound();
+            animator.SetBool("IsDriving", false);
         }
     }
 
@@ -62,17 +50,39 @@ public class TankAnimation : MonoBehaviour
     {
         if (canPlayAudio)
         {
+            idleEngineSFXSource.Stop();
+            idleEngineSFXSource2.Stop();
+            if (!engineRunningSFXSource.isPlaying)
+            {
+                engineRunningSFXSource.PlayOneShot(engineRunningSFX);
+            }
+        }
+    }
+
+    private void PlayIdleSound()
+    {
+        if (canPlayAudio)
+        {
             engineRunningSFXSource.Stop();
+            idleEngineSFXSource2.Stop();
             if (!idleEngineSFXSource.isPlaying)
             {
-                if (Random.Range(0, 1) == 0)
-                {
-                    idleEngineSFXSource.PlayOneShot(idleEngineSFXSource.clip);
-                }
-                else
-                {
-                    idleEngineSFXSource2.PlayOneShot(idleEngineSFXSource.clip);
-                }
+                //Debug.Log("Playing Player1 Idle SFX");
+                idleEngineSFXSource.PlayOneShot(idleEngineSFXSource.clip);
+            }
+        }
+    }
+
+    private void PlayIdleSound2()
+    {
+        if (canPlayAudio)
+        {
+            engineRunningSFXSource.Stop();
+            idleEngineSFXSource.Stop();
+            if (!idleEngineSFXSource2.isPlaying)
+            {
+                //Debug.Log("Playing Player2 Idle SFX");
+                idleEngineSFXSource2.PlayOneShot(idleEngineSFXSource2.clip);
             }
         }
     }
