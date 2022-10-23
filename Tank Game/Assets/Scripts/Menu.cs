@@ -1,11 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Menu : MonoBehaviour
 {
     public GameObject[] UIElementsToeEnable;
     public GameObject music;
+
+    public CinemachineTargetGroup targetGroup;
+
+    private void Start()
+    {
+        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+        {
+            targetGroup.m_Targets[i].weight = 1f;
+        }
+    }
 
     public void Play()
     {
