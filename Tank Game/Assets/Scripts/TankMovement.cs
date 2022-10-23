@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
+using UnityEngine.Rendering.UI;
 
 public class TankMovement : MonoBehaviour
 {
@@ -91,12 +92,20 @@ public class TankMovement : MonoBehaviour
                 targetGroup.m_Targets[0].weight = 1f;
                 targetGroup.m_Targets[1].weight = 0.2f;
 
-                //Debug.Log("Euler Angels : " + BarrelRotator.rotation.eulerAngles.z);
+                if (BarrelRotator.rotation.eulerAngles.z > 270 || BarrelRotator.rotation.eulerAngles.z < 90)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
+                }
 
-                //if (BarrelRotator.rotation.eulerAngles.z < 270 || BarrelRotator.rotation.eulerAngles.z < 90)
-                //{
-                BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
-                //}
+                else if (BarrelRotator.rotation.eulerAngles.z > 90 && BarrelRotator.rotation.eulerAngles.z < 95)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, -1 * barrelSpeed * Time.deltaTime);
+                }
+
+                else if (BarrelRotator.rotation.eulerAngles.z < 270 && BarrelRotator.rotation.eulerAngles.z > 265)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, 1 * barrelSpeed * Time.deltaTime);
+                }
 
                 if (canMove)
                 {
@@ -161,9 +170,19 @@ public class TankMovement : MonoBehaviour
                 targetGroup.m_Targets[0].weight = 0.2f;
                 targetGroup.m_Targets[1].weight = 1f;
 
-                if (BarrelRotator.rotation.z <= 0.5f || BarrelRotator.rotation.z >= -0.5f)
+                if (BarrelRotator.rotation.eulerAngles.z > 270 || BarrelRotator.rotation.eulerAngles.z < 90)
                 {
                     BarrelRotator.Rotate(Vector3.forward, Input.GetAxisRaw("Vertical") * barrelSpeed * Time.deltaTime);
+                }
+
+                else if (BarrelRotator.rotation.eulerAngles.z > 90 && BarrelRotator.rotation.eulerAngles.z < 95)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, -1 * barrelSpeed * Time.deltaTime);
+                }
+
+                else if (BarrelRotator.rotation.eulerAngles.z < 270 && BarrelRotator.rotation.eulerAngles.z > 265)
+                {
+                    BarrelRotator.Rotate(Vector3.forward, 1 * barrelSpeed * Time.deltaTime);
                 }
 
                 if (canMove)

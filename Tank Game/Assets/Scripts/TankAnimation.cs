@@ -24,29 +24,29 @@ public class TankAnimation : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
             && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 1)
         {
-            PlayIdleSound();
+            PlayDrivingSound();
             animator.SetBool("IsDriving", true);
         }
-        else if(Input.GetAxisRaw("Horizontal") == 0)
+        else if(Input.GetAxisRaw("Horizontal") == 0 || TankMovement.moveTimer <= 0)
         {
-            PlayDrivingSound();
+            PlayIdleSound();
             animator.SetBool("IsDriving", false);
         }
 
         if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
             && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 2)
         {
-            PlayIdleSound();
+            PlayDrivingSound();
             animator.SetBool("IsDriving", true);
         }
-        else if (Input.GetAxisRaw("Horizontal") == 0)
+        else if (Input.GetAxisRaw("Horizontal") == 0 || TankMovement.moveTimer <= 0)
         {
-            PlayDrivingSound();
+            PlayIdleSound();
             animator.SetBool("IsDriving", false);
         }
     }
 
-    private void PlayIdleSound()
+    private void PlayDrivingSound()
     {
         if (canPlayAudio)
         {
@@ -58,7 +58,7 @@ public class TankAnimation : MonoBehaviour
         }
     }
 
-    private void PlayDrivingSound()
+    private void PlayIdleSound()
     {
         if (canPlayAudio)
         {
