@@ -56,16 +56,16 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        gameObject.transform.right =
-             Vector3.Slerp(gameObject.transform.right, rb.velocity.normalized, Time.deltaTime);
+        //gameObject.transform.right =
+        //     Vector3.Slerp(gameObject.transform.right, rb.velocity.normalized, Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "TileMap")
-        {
-            gameObject.SetActive(false);
-        }
+        //if (collision.gameObject.tag == "TileMap")
+        //{
+        //    gameObject.GetComponent<Tilemap>().SetTile(new Vector2(transform.position, transform.position), null);
+        //}
 
         if (collision.gameObject.tag != "Bullet")
         {
@@ -96,7 +96,14 @@ public class Bullet : MonoBehaviour
             {
                 bulletMetalImpactSFXSource.PlayOneShot(bulletImpactSFX);
                 metalImpactSFXSource.PlayOneShot(metalImpactSFX);
-                TankMovement.healthPoints -= damage;
+                if (collision.gameObject.GetComponent<TankMovement>().PlayerNumber == 1)
+                {
+                    TankMovement.healthPoints -= damage;
+                }
+                else if (collision.gameObject.GetComponent<TankMovement>().PlayerNumber == 2)
+                {
+                    TankMovement.healthPoints2 -= damage;
+                }
                 Debug.Log("Player " + collision.gameObject.GetComponent<TankMovement>().PlayerNumber + " Got Hit!");
             }
         }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
-using UnityEngine.Rendering.UI;
+using UnityEngine.UI;
+using Unity.PlasticSCM.Editor.WebApi;
 
 public class TankMovement : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class TankMovement : MonoBehaviour
     private float maxBulletMoveSpeed;
     private float bulletMoveSpeedPercentage;
     private float moveSpeed;
+    public Slider bulletMoveSpeedSlider;
+    private bool isGoingDown;
 
     public Transform FirePoint;
     public GameObject Bullet;
@@ -24,8 +27,6 @@ public class TankMovement : MonoBehaviour
 
     public Turning turning;
 
-    public TextMeshProUGUI moveTimerText;
-    public TextMeshProUGUI shootingPowerText;
     public static float moveTimer;
     public static float defaultMoveTimer;
     public static bool moveTimerOn;
@@ -33,7 +34,8 @@ public class TankMovement : MonoBehaviour
     public static bool canStart;
 
     public static float healthPoints;
-    private TextMeshProUGUI healthText;
+    public static float healthPoints2;
+    public Slider healthSlider;
     public TextMeshProUGUI winnerText;
 
     public static bool hasWon;
@@ -47,13 +49,17 @@ public class TankMovement : MonoBehaviour
 
     public Camera cam;
 
+    private Rigidbody2D rb;
+    public ParticleSystem fuelParticles;
+
     private void Start()
     {
-        barrelSpeed = 20f;
-        moveSpeed = 2f;
+        barrelSpeed = 50f;
+        moveSpeed = 3.5f;
         canFire = true;
         canMove = true;
         healthPoints = 3f;
+        healthPoints2 = 3f;
 
         maxBulletMoveSpeed = 10f;
 
@@ -62,9 +68,9 @@ public class TankMovement : MonoBehaviour
 
         targetGroup = GameObject.FindGameObjectWithTag("TargetGroup").GetComponent<CinemachineTargetGroup>();
 
-        healthText = GetComponent<TextMeshProUGUI>();
-
         mainMenu.SetActive(true);
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -75,7 +81,8 @@ public class TankMovement : MonoBehaviour
         {
             if (PlayerNumber == 1)
             {
-                healthText.text = "Health : " + healthPoints.ToString();
+                healthSlider.value = healthPoints.Remap(0, 3, 0, 1);
+                bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
 
                 if (healthPoints <= 0)
                 {
@@ -85,9 +92,6 @@ public class TankMovement : MonoBehaviour
                         "Hit R To Restart!";
                     hasWon = true;
                 }
-
-                moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer) + "S";
-                shootingPowerText.text = "ShootingPower : " + Mathf.Round(bulletMoveSpeedPercentage) + "%";
 
                 targetGroup.m_Targets[0].weight = 1f;
                 targetGroup.m_Targets[1].weight = 0.2f;
@@ -133,9 +137,21 @@ public class TankMovement : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.Space) && canFire)
                 {
-                    if (currentBulletMoveSpeed < maxBulletMoveSpeed)
+                    if (currentBulletMoveSpeed < maxBulletMoveSpeed && !isGoingDown)
                     {
                         currentBulletMoveSpeed += Time.deltaTime * 10;
+                    }
+                    else if (currentBulletMoveSpeed >= maxBulletMoveSpeed && !isGoingDown)
+                    {
+                        isGoingDown = true;
+                    }
+                    else if (isGoingDown)
+                    {
+                        currentBulletMoveSpeed -= Time.deltaTime * 10;
+                        if (currentBulletMoveSpeed <= 0)
+                        {
+                            isGoingDown = false;
+                        }
                     }
                 }
 
@@ -144,28 +160,40 @@ public class TankMovement : MonoBehaviour
                     shootingSFXSource.PlayOneShot(shootingSFX);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
-                        FirePoint.transform.position, FirePoint.transform.rotation);
+                        FirePoint.transform.position, BarrelRotator.transform.rotation);
                     BulletObject.GetComponent<Rigidbody2D>().AddForce(
                         BarrelRotator.up * currentBulletMoveSpeed, ForceMode2D.Impulse);
                     currentBulletMoveSpeed = 0f;
                 }
+
+                bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
+
+                if (Input.GetAxisRaw("Horizontal") == 0)
+                {
+                    rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                }
+                else
+                {
+                    rb.constraints = RigidbodyConstraints2D.None;
+                }
+
+                fuelParticles.emissionRate = moveTimer * 2f;
             }
 
             if (PlayerNumber == 2)
             {
-                healthText.text = "Health : " + healthPoints.ToString();
+                healthSlider.value = healthPoints.Remap(0, 3, 0, 1);
+                bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
 
-                if (healthPoints <= 0)
+                if (healthPoints2 <= 0)
                 {
                     gameObject.SetActive(false);
+                    fuelParticles.gameObject.SetActive(false);
                     winnerText.enabled = true;
                     winnerText.text = "Player 1 Won! \n" +
                         "Hit R To Restart!";
                     hasWon = true;
                 }
-
-                moveTimerText.text = "Fuel : " + Mathf.Round(moveTimer) + "S";
-                shootingPowerText.text = "ShootingPower : " + Mathf.Round(bulletMoveSpeedPercentage) + "%";
 
                 targetGroup.m_Targets[0].weight = 0.2f;
                 targetGroup.m_Targets[1].weight = 1f;
@@ -211,9 +239,21 @@ public class TankMovement : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.Space) && canFire)
                 {
-                    if (currentBulletMoveSpeed < maxBulletMoveSpeed)
+                    if (currentBulletMoveSpeed < maxBulletMoveSpeed && !isGoingDown)
                     {
                         currentBulletMoveSpeed += Time.deltaTime * 10;
+                    }
+                    else if (currentBulletMoveSpeed >= maxBulletMoveSpeed && !isGoingDown)
+                    {
+                        isGoingDown = true;
+                    }
+                    else if (isGoingDown)
+                    {
+                        currentBulletMoveSpeed -= Time.deltaTime * 10;
+                        if (currentBulletMoveSpeed <= 0)
+                        {
+                            isGoingDown = false;
+                        }
                     }
                 }
 
@@ -227,6 +267,17 @@ public class TankMovement : MonoBehaviour
                         BarrelRotator.up * currentBulletMoveSpeed, ForceMode2D.Impulse);
                     currentBulletMoveSpeed = 0f;
                 }
+
+                if (Input.GetAxisRaw("Horizontal") == 0)
+                {
+                    rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                }
+                else
+                {
+                    rb.constraints = RigidbodyConstraints2D.None;
+                }
+
+                fuelParticles.emissionRate = moveTimer * 2f;
             }
         }
     }
