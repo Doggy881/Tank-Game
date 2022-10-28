@@ -5,12 +5,33 @@ using UnityEngine;
 public class ActivateBridge : MonoBehaviour
 {
     private bool bridgeIsActive;
+    public bool canOnlyTurnOn;
 
     public GameObject Bridge;
+    private ParticleSystem activateParticle;
+
+    private void Start()
+    {
+        activateParticle = GetComponent<ParticleSystem>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        bridgeIsActive = !bridgeIsActive;
-        Bridge.SetActive(bridgeIsActive);
+        if (!canOnlyTurnOn)
+        {
+            bridgeIsActive = !bridgeIsActive;
+            Bridge.SetActive(bridgeIsActive);
+            ActivateParticle();
+        }
+        else
+        {
+            Bridge.SetActive(true);
+            ActivateParticle();
+        }
+    }
+
+    private void ActivateParticle()
+    {
+        activateParticle.Play();
     }
 }
