@@ -73,6 +73,7 @@ public class TankMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    [System.Obsolete]
     private void Update()
     {
         bulletMoveSpeedPercentage = currentBulletMoveSpeed / maxBulletMoveSpeed * 100;
@@ -81,7 +82,7 @@ public class TankMovement : MonoBehaviour
         {
             if (PlayerNumber == 1)
             {
-                healthSlider.value = healthPoints.Remap(0, 3, 0, 1);
+                healthSlider.value = healthPoints.Remap(1, 3, 0, 1);
                 bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
 
                 if (healthPoints <= 0)
