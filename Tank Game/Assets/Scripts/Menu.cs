@@ -15,6 +15,9 @@ public class Menu : MonoBehaviour
         {
             targetGroup.m_Targets[i].weight = 1f;
         }
+
+        TankMovement.canStart = false;
+        TankAnimation.canPlayAudio = false;
     }
 
     public void Play()

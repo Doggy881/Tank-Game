@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 using UnityEngine.UI;
-using Unity.PlasticSCM.Editor.WebApi;
 
 public class TankMovement : MonoBehaviour
 {
@@ -37,6 +36,7 @@ public class TankMovement : MonoBehaviour
     public static float healthPoints2;
     public Slider healthSlider;
     public TextMeshProUGUI winnerText;
+    public GameObject winnerMenu;
 
     public static bool hasWon;
 
@@ -82,15 +82,15 @@ public class TankMovement : MonoBehaviour
         {
             if (PlayerNumber == 1)
             {
-                healthSlider.value = healthPoints.Remap(1, 3, 0, 1);
+                healthSlider.value = healthPoints.Remap(0, 3, 0, 1);
                 bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
 
                 if (healthPoints <= 0)
                 {
                     gameObject.SetActive(false);
-                    winnerText.enabled = true;
-                    winnerText.text = "Player 2 Won! \n" +
-                        "Hit R To Restart!";
+                    fuelParticles.gameObject.SetActive(false);
+                    winnerMenu.SetActive(true);
+                    winnerText.text = "Player 2 Won!";
                     hasWon = true;
                 }
 
@@ -183,16 +183,15 @@ public class TankMovement : MonoBehaviour
 
             if (PlayerNumber == 2)
             {
-                healthSlider.value = healthPoints.Remap(0, 3, 0, 1);
+                healthSlider.value = healthPoints2.Remap(0, 3, 0, 1);
                 bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
 
                 if (healthPoints2 <= 0)
                 {
                     gameObject.SetActive(false);
                     fuelParticles.gameObject.SetActive(false);
-                    winnerText.enabled = true;
-                    winnerText.text = "Player 1 Won! \n" +
-                        "Hit R To Restart!";
+                    winnerMenu.SetActive(true);
+                    winnerText.text = "Player 1 Won!";
                     hasWon = true;
                 }
 
