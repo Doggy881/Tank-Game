@@ -24,6 +24,7 @@ public class TankAnimation : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
             && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 1)
         {
+            CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
             PlayDrivingSound();
             animator.SetBool("IsDriving", true);
         }
@@ -36,6 +37,7 @@ public class TankAnimation : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") != 0 && GetComponent<TankMovement>().IsItsTurn
             && TankMovement.canMove && GetComponent<TankMovement>().PlayerNumber == 2)
         {
+            CinemachineShake.Instance.ShakeCamera(1f, 0.1f);
             PlayDrivingSound();
             animator.SetBool("IsDriving", true);
         }

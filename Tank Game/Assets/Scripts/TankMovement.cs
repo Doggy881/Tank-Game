@@ -159,6 +159,7 @@ public class TankMovement : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
                     shootingSFXSource.PlayOneShot(shootingSFX);
+                    CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, BarrelRotator.transform.rotation);
@@ -260,6 +261,7 @@ public class TankMovement : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Space) && canFire)
                 {
                     shootingSFXSource.PlayOneShot(shootingSFX);
+                    CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
                     canFire = false;
                     GameObject BulletObject = Instantiate(Bullet,
                         FirePoint.transform.position, FirePoint.transform.rotation);
