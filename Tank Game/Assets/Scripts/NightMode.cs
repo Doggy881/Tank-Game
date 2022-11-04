@@ -9,6 +9,7 @@ public class NightMode : MonoBehaviour
     private bool nightMode;
 
     public Light2D globalLight;
+    public GameObject desertSun;
     public GameObject[] headLights;
 
     private void Start()
@@ -33,6 +34,7 @@ public class NightMode : MonoBehaviour
                 headLights[i].SetActive(nightMode);
             }
             gameObject.GetComponent<Toggle>().isOn = nightMode;
+            desertSun.SetActive(!nightMode);
         }
         else if (!nightMode)
         {
@@ -42,6 +44,7 @@ public class NightMode : MonoBehaviour
                 headLights[i].SetActive(nightMode);
             }
             gameObject.GetComponent<Toggle>().isOn = nightMode;
+            desertSun.SetActive(!nightMode);
         }
     }
 }
