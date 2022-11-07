@@ -12,6 +12,7 @@ public class TankMovement : MonoBehaviour
     private float maxBulletMoveSpeed;
     private float bulletMoveSpeedPercentage;
     private float moveSpeed;
+
     public Slider bulletMoveSpeedSlider;
     private bool isGoingDown;
 
@@ -46,8 +47,6 @@ public class TankMovement : MonoBehaviour
     CinemachineTargetGroup targetGroup;
 
     public GameObject mainMenu;
-
-    public Camera cam;
 
     private Rigidbody2D rb;
     public ParticleSystem fuelParticles;
@@ -170,7 +169,7 @@ public class TankMovement : MonoBehaviour
 
                 bulletMoveSpeedSlider.value = bulletMoveSpeedPercentage / 100;
 
-                if (Input.GetAxisRaw("Horizontal") == 0)
+                if (Input.GetAxisRaw("Horizontal") == 0 && GroundCheck.isGrounded == true)
                 {
                     rb.constraints = RigidbodyConstraints2D.FreezePosition;
                 }
@@ -270,7 +269,7 @@ public class TankMovement : MonoBehaviour
                     currentBulletMoveSpeed = 0f;
                 }
 
-                if (Input.GetAxisRaw("Horizontal") == 0)
+                if (Input.GetAxisRaw("Horizontal") == 0 && GroundCheck.isGrounded == true)
                 {
                     rb.constraints = RigidbodyConstraints2D.FreezePosition;
                 }

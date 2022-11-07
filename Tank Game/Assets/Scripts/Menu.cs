@@ -13,6 +13,10 @@ public class Menu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mapSelect;
 
+    public Transform[] tanks;
+    private Vector2 tank1Location;
+    private Vector2 tank2Location;
+
     private void Start()
     {
         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
@@ -23,6 +27,9 @@ public class Menu : MonoBehaviour
         TankMovement.canStart = false;
         TankAnimation.canPlayAudio = false;
         pauseMenu.SetActive(false);
+
+        tank1Location = tanks[0].position;
+        tank2Location = tanks[1].position;
     }
 
     public void Play()
@@ -34,6 +41,12 @@ public class Menu : MonoBehaviour
         music.GetComponent<AudioLowPassFilter>().enabled = false;
         music.GetComponent<AudioHighPassFilter>().enabled = false;
         Time.timeScale = 1f;
+        tanks[0].position = tank1Location;
+        tanks[1].position = tank2Location;
+        foreach (var tank in tanks)
+        {
+            tank.rotation = Quaternion.identity;
+        }
     }
 
     public void Quit()
