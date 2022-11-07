@@ -43,6 +43,8 @@ public class Bullet : MonoBehaviour
         bulletImpactSFXSource = GameObject.FindGameObjectWithTag("ExplosionSFX").GetComponent<AudioSource>();
         bulletMetalImpactSFXSource = GameObject.FindGameObjectWithTag("BulletMetalSFX").GetComponent<AudioSource>();
         metalImpactSFXSource = GameObject.FindGameObjectWithTag("MetalSFX").GetComponent<AudioSource>();
+
+        transform.rotation = Quaternion.identity;
     }
 
     private void Update()
@@ -56,8 +58,8 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //gameObject.transform.right =
-        //     Vector3.Slerp(gameObject.transform.right, rb.velocity.normalized, Time.deltaTime);
+        gameObject.transform.right =
+             Vector3.Slerp(gameObject.transform.right, rb.velocity.normalized, Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

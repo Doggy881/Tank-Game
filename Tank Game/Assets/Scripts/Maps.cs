@@ -6,7 +6,7 @@ public class Maps : MonoBehaviour
 {
     public GameObject[] maps;
 
-    private void Start()
+    private void Awake()
     {
         for (int i = 0; i < maps.Length; i++)
         {

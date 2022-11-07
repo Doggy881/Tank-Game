@@ -11,6 +11,7 @@ public class Menu : MonoBehaviour
 
     private bool isPaused;
     public GameObject pauseMenu;
+    public GameObject mapSelect;
 
     private void Start()
     {
@@ -26,12 +27,13 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-        gameObject.SetActive(false);
+        mapSelect.SetActive(false);
 
         TankMovement.canStart = true;
         TankAnimation.canPlayAudio = true;
         music.GetComponent<AudioLowPassFilter>().enabled = false;
         music.GetComponent<AudioHighPassFilter>().enabled = false;
+        Time.timeScale = 1f;
     }
 
     public void Quit()
@@ -43,15 +45,12 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Pressed Escape Or P!");
             if (isPaused)
             {
-                Debug.Log("Resuming!");
                 Resume();
             }
             else
             {
-                Debug.Log("Paused!");
                 Pause();
             }
         }
@@ -64,7 +63,6 @@ public class Menu : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
-        Debug.Log("Paused!");
     }
 
     public void Resume()
