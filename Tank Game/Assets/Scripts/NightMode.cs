@@ -9,12 +9,17 @@ public class NightMode : MonoBehaviour
     private bool nightMode;
 
     public Light2D globalLight;
+    public Light2D[] tileMapGlobalLights;
     public GameObject desertSun;
     public GameObject[] headLights;
 
     private void Start()
     {
         globalLight.intensity = 0.8f;
+        foreach (var light in tileMapGlobalLights)
+        {
+            light.intensity = 0.8f;
+        }
         for (int i = 0; i < headLights.Length; i++)
         {
             headLights[i].SetActive(nightMode);
@@ -29,6 +34,10 @@ public class NightMode : MonoBehaviour
         if (nightMode)
         {
             globalLight.intensity = 0.2f;
+            foreach (var light in tileMapGlobalLights)
+            {
+                light.intensity = 0.2f;
+            }
             for (int i = 0; i < headLights.Length; i++)
             {
                 headLights[i].SetActive(nightMode);
@@ -39,6 +48,10 @@ public class NightMode : MonoBehaviour
         else if (!nightMode)
         {
             globalLight.intensity = 0.8f;
+            foreach (var light in tileMapGlobalLights)
+            {
+                light.intensity = 0.8f;
+            }
             for (int i = 0; i < headLights.Length; i++)
             {
                 headLights[i].SetActive(nightMode);

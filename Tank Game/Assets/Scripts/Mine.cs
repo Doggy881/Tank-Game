@@ -31,5 +31,12 @@ public class Mine : MonoBehaviour
                 GetComponent<SpriteRenderer>().enabled = false;
             }
         }
+
+        if (collision.tag == "Bullet")
+        {
+            explosionParticle.Play();
+            explosionSFX.PlayOneShot(explosionSFX.clip);
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 }

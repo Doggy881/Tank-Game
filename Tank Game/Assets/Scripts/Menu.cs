@@ -16,6 +16,7 @@ public class Menu : MonoBehaviour
     public Transform[] tanks;
     private Vector2 tank1Location;
     private Vector2 tank2Location;
+    public GameObject[] mines;
 
     private void Start()
     {
@@ -38,6 +39,15 @@ public class Menu : MonoBehaviour
 
         TankMovement.canStart = true;
         TankAnimation.canPlayAudio = true;
+        TankMovement.moveTimer = TankMovement.defaultMoveTimer;
+        TankMovement.canMove = true;
+        TankMovement.healthPoints = 3;
+        TankMovement.healthPoints2 = 3;
+        foreach (var mine in mines)
+        {
+            mine.SetActive(true);
+            mine.GetComponent<SpriteRenderer>().enabled = true;
+        }
         music.GetComponent<AudioLowPassFilter>().enabled = false;
         music.GetComponent<AudioHighPassFilter>().enabled = false;
         Time.timeScale = 1f;
