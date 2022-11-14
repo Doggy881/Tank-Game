@@ -81,6 +81,7 @@ public class Bullet : MonoBehaviour
             TankMovement.moveTimer = TankMovement.defaultMoveTimer;
             TankMovement.moveTimerOn = true;
             GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
             rb.freezeRotation = true;
             if (canParticle)
             {

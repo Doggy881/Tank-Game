@@ -18,6 +18,8 @@ public class Menu : MonoBehaviour
     private Vector2 tank2Location;
     public GameObject[] mines;
 
+    private bool isInMenu;
+
     private void Start()
     {
         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
@@ -36,6 +38,7 @@ public class Menu : MonoBehaviour
     public void Play()
     {
         mapSelect.SetActive(false);
+        isInMenu = false;
 
         TankMovement.canStart = true;
         TankAnimation.canPlayAudio = true;
@@ -70,7 +73,10 @@ public class Menu : MonoBehaviour
         {
             if (isPaused)
             {
-                Resume();
+                if (!isInMenu)
+                {
+                    Resume();
+                }
             }
             else
             {
@@ -95,5 +101,10 @@ public class Menu : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
+    }
+
+    public void MainMenu()
+    {
+        isInMenu = true;
     }
 }
